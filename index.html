@@ -4,296 +4,448 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chenzhang Wang | Personal Homepage</title>
+
   <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      max-width: 950px;
-      margin: 0 auto;
-      padding: 50px 24px;
-      line-height: 1.7;
-      color: #222;
-      background: #fafafa;
+    :root {
+      --primary: #2563eb;
+      --dark: #111827;
+      --text: #374151;
+      --muted: #6b7280;
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --border: #e5e7eb;
     }
 
-    header {
-      border-bottom: 2px solid #ddd;
-      margin-bottom: 35px;
-      padding-bottom: 25px;
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-name {
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .nav-links a {
+      margin-left: 18px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 50px 24px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #ffffff, #eff6ff);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 42px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
     }
 
     h1 {
-      font-size: 38px;
-      margin-bottom: 8px;
-    }
-
-    h2 {
-      margin-top: 38px;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 6px;
-      color: #1f2937;
-    }
-
-    h3 {
-      margin-bottom: 4px;
-      color: #333;
-    }
-
-    p {
-      margin-top: 6px;
+      font-size: 44px;
+      line-height: 1.15;
+      margin: 0 0 12px;
+      color: var(--dark);
     }
 
     .subtitle {
       font-size: 18px;
-      color: #555;
+      color: var(--muted);
+      margin-bottom: 24px;
     }
 
-    .contact {
-      margin-top: 12px;
-      color: #444;
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
     }
 
-    .section-item {
-      margin-bottom: 22px;
+    .button {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .button-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .button-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .button-secondary {
+      border: 1px solid var(--border);
+      color: var(--dark);
+      background: white;
+    }
+
+    .button-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .profile-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .profile-card h3 {
+      margin-top: 0;
+      color: var(--dark);
+    }
+
+    .info-line {
+      margin: 10px 0;
+      color: var(--text);
+    }
+
+    section {
+      margin-top: 34px;
+    }
+
+    .section-title {
+      font-size: 26px;
+      color: var(--dark);
+      margin-bottom: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      color: var(--dark);
+      font-size: 18px;
     }
 
     .date {
-      color: #666;
-      font-style: italic;
+      color: var(--muted);
       font-size: 14px;
+      margin-bottom: 10px;
     }
 
     ul {
-      padding-left: 22px;
+      padding-left: 20px;
+      margin-bottom: 0;
     }
 
-    a {
-      color: #2563eb;
+    .publication {
+      margin-bottom: 16px;
+    }
+
+    .publication a {
+      color: var(--primary);
       text-decoration: none;
     }
 
-    a:hover {
+    .publication a:hover {
       text-decoration: underline;
     }
 
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
     .tag {
-      display: inline-block;
-      background: #e5e7eb;
-      padding: 4px 9px;
-      border-radius: 12px;
-      margin: 4px 4px 4px 0;
+      background: #e0ecff;
+      color: #1e40af;
+      padding: 7px 12px;
+      border-radius: 999px;
       font-size: 14px;
+      font-weight: 500;
     }
 
     footer {
       margin-top: 50px;
-      padding-top: 20px;
-      border-top: 1px solid #ddd;
-      color: #666;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
       font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .nav-links {
+        display: none;
+      }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>Chenzhang Wang</h1>
-    <p class="subtitle">
-      BSc Mathematics and Business student at the University of Edinburgh
-    </p>
-    <p class="contact">
-      Email: <a href="mailto:S2558991@ed.ac.uk">S2558991@ed.ac.uk</a>
-      <!-- You can add LinkedIn / GitHub / CV links here later -->
-    </p>
-  </header>
-
-  <section>
-    <h2>About Me</h2>
-    <p>
-      I am an undergraduate student majoring in Mathematics and Business at the
-      University of Edinburgh, currently pursuing an exchange programme in
-      Mathematical Sciences and Economics at Nanyang Technological University.
-      My academic interests lie in quantitative methods, applied econometrics,
-      causal inference, statistical modelling, and data-driven business analysis.
-    </p>
-    <p>
-      I have research experience in interdisciplinary projects involving
-      generative AI in education, climate change literature analysis, office
-      rental market analysis, and economic modelling.
-    </p>
-  </section>
-
-  <section>
-    <h2>Education</h2>
-
-    <div class="section-item">
-      <h3>University of Edinburgh</h3>
-      <p class="date">Sep. 2023 – May 2027</p>
-      <p>
-        BSc (Hons) Mathematics and Business, School of Mathematics<br />
-        Average Score: 71/100 | GPA: 3.71/4.00 | First Class standing
-      </p>
+  <nav>
+    <div class="nav-container">
+      <div class="nav-name">Chenzhang Wang</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#skills">Skills</a>
+      </div>
     </div>
+  </nav>
 
-    <div class="section-item">
-      <h3>Nanyang Technological University</h3>
-      <p class="date">Aug. 2025 – May 2026</p>
-      <p>
-        Exchange Programme in Mathematical Sciences and Economics<br />
-        Relevant modules include Econometrics, Quantitative Methods for Business,
-        Mathematical Modelling, and Introductory Statistics with Applications.
-      </p>
-    </div>
+  <main class="container">
+    <section class="hero" id="about">
+      <div class="hero-card">
+        <h1>Chenzhang Wang</h1>
+        <p class="subtitle">
+          Mathematics and Business student at the University of Edinburgh.
+          Interested in quantitative methods, causal inference, econometrics,
+          statistical modelling, and data-driven business analysis.
+        </p>
 
-    <div class="section-item">
-      <h3>Peking University Summer School</h3>
-      <p class="date">Jun. 2025 – Jul. 2025</p>
-      <p>
-        Completed modules in causal identification methods and data analysis
-        with Stata, covering DID, RDD, IV, regression modelling, statistical
-        testing, and empirical paper replication.
-      </p>
-    </div>
-  </section>
+        <p>
+          I am currently pursuing an exchange programme in Mathematical Sciences
+          and Economics at Nanyang Technological University. My research
+          interests lie at the intersection of statistics, economics, data
+          science, and business strategy.
+        </p>
 
-  <section>
-    <h2>Research Projects</h2>
+        <div class="button-group">
+          <a class="button button-primary" href="CV_Wang_Chenzhang.pdf" target="_blank">
+            Download CV
+          </a>
+          <a class="button button-secondary" href="mailto:S2558991@ed.ac.uk">
+            Contact Me
+          </a>
+        </div>
+      </div>
 
-    <div class="section-item">
-      <h3>
-        Analysis of References in the Intergovernmental Panel on Climate Change
-        Assessment Reports
-      </h3>
-      <p class="date">Jul. 2025 – Present</p>
-      <p>
-        Research Intern, led by the Bartlett School of Sustainable Construction,
-        University College London.
-      </p>
-      <ul>
-        <li>
-          Conducted literature analysis on climate change and low-carbon transition.
-        </li>
-        <li>
-          Collected, cleaned, and organised data for a structured reference database.
-        </li>
-        <li>
-          Supported ongoing literature analysis through database construction.
-        </li>
-      </ul>
-    </div>
+      <div class="profile-card">
+        <h3>Profile</h3>
+        <p class="info-line"><strong>University:</strong> University of Edinburgh</p>
+        <p class="info-line"><strong>Degree:</strong> BSc Mathematics and Business</p>
+        <p class="info-line"><strong>Exchange:</strong> Nanyang Technological University</p>
+        <p class="info-line"><strong>Email:</strong> S2558991@ed.ac.uk</p>
+      </div>
+    </section>
 
-    <div class="section-item">
-      <h3>
-        A Comprehensive Analysis of the US Office Rental Market, 2018–2024
-      </h3>
-      <p class="date">Mar. 2025</p>
-      <p>Research Member, ASA DataFest 2025.</p>
-      <ul>
-        <li>
-          Applied statistical techniques and Python visualisation to analyse rent
-          trends, occupancy recovery patterns, and economic drivers.
-        </li>
-        <li>
-          Identified mismatches between occupancy rates and rental prices.
-        </li>
-        <li>
-          Classified markets into strategic groups such as high-risk,
-          tenant-favourable, and investment-ready markets.
-        </li>
-      </ul>
-    </div>
-  </section>
+    <section id="education">
+      <h2 class="section-title">Education</h2>
 
-  <section>
-    <h2>Publications</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>University of Edinburgh</h3>
+          <p class="date">Sep. 2023 – May 2027</p>
+          <p>
+            BSc Mathematics and Business, School of Mathematics.
+            Current average: 71/100; GPA: 3.71/4.00; First Class standing.
+          </p>
+        </div>
 
-    <div class="section-item">
-      <p>
-        Zhang, J., <strong>Wang, C.</strong>, & Liu, M. Generative AI Use Profiles
-        and Academic Outcomes in Higher Education: The Role of Institutional
-        Support. <em>Interactive Learning Environments</em>. Accepted.
-        <br />
-        <a href="https://doi.org/10.1080/10494820.2026.2668610" target="_blank">
-          https://doi.org/10.1080/10494820.2026.2668610
-        </a>
-      </p>
-    </div>
+        <div class="card">
+          <h3>Nanyang Technological University</h3>
+          <p class="date">Aug. 2025 – May 2026</p>
+          <p>
+            Exchange Programme in Mathematical Sciences and Economics.
+            Relevant modules include Econometrics, Quantitative Methods for
+            Business, Mathematical Modelling, and Statistics.
+          </p>
+        </div>
 
-    <div class="section-item">
-      <p>
-        Liu, Y., <strong>Wang, C.</strong>, & Li, Y. (2025). Analyzing the Price
-        Elasticity of Demand in China’s Tourism Sector: Key Economic Drivers and
-        Implications. In <em>Proceedings of ICEMME 2024</em>, Springer Nature.
-        <br />
-        <a href="https://doi.org/10.2991/978-94-6463-690-1_15" target="_blank">
-          https://doi.org/10.2991/978-94-6463-690-1_15
-        </a>
-      </p>
-    </div>
-  </section>
+        <div class="card">
+          <h3>Peking University Summer School</h3>
+          <p class="date">Jun. 2025 – Jul. 2025</p>
+          <p>
+            Completed modules in causal identification methods and data analysis
+            with Stata, covering DID, RDD, IV, regression modelling, and
+            empirical research replication.
+          </p>
+        </div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Experience</h2>
+    <section id="research">
+      <h2 class="section-title">Research Projects</h2>
 
-    <div class="section-item">
-      <h3>Research Assistant, School of Computer Science, Wuhan Institute of Technology</h3>
-      <p class="date">Sep. 2025 – Sep. 2026</p>
-      <ul>
-        <li>
-          Collected, cleaned, and analysed survey-based data for research on
-          generative AI adoption and educational outcomes.
-        </li>
-        <li>
-          Applied latent class analysis, ordered logit modelling, bootstrap tests,
-          and XGBoost robustness checks.
-        </li>
-        <li>
-          Contributed to two research articles, including one accepted by an SSCI journal.
-        </li>
-      </ul>
-    </div>
+      <div class="grid">
+        <div class="card">
+          <h3>IPCC Assessment Reports Reference Analysis</h3>
+          <p class="date">Jul. 2025 – Present</p>
+          <p>
+            Research Intern, Bartlett School of Sustainable Construction,
+            University College London.
+          </p>
+          <ul>
+            <li>Conducted literature analysis on climate change and low-carbon transition.</li>
+            <li>Collected, cleaned, and organised data for a structured reference database.</li>
+            <li>Supported ongoing literature analysis and database construction.</li>
+          </ul>
+        </div>
 
-    <div class="section-item">
-      <h3>Intern Teacher, Wuhan Libertar Education & Technology Co., Ltd.</h3>
-      <p class="date">May 2025 – Jun. 2025</p>
-      <ul>
-        <li>
-          Monitored students’ learning progress and vocabulary acquisition.
-        </li>
-        <li>
-          Graded mock exams and assignments and provided tailored explanations.
-        </li>
-        <li>
-          Communicated with colleagues and supervisors to support teaching tasks.
-        </li>
-      </ul>
-    </div>
-  </section>
+        <div class="card">
+          <h3>US Office Rental Market Analysis, 2018–2024</h3>
+          <p class="date">Mar. 2025</p>
+          <p>Research Member, ASA DataFest 2025.</p>
+          <ul>
+            <li>Applied Python-based statistical analysis and visualisation.</li>
+            <li>Analysed rent trends, occupancy recovery patterns, and economic drivers.</li>
+            <li>Classified markets into high-risk, tenant-favourable, and investment-ready groups.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Skills</h2>
-    <p>
-      <span class="tag">Python</span>
-      <span class="tag">R</span>
-      <span class="tag">Stata</span>
-      <span class="tag">SPSS</span>
-      <span class="tag">Excel</span>
-      <span class="tag">Causal Inference</span>
-      <span class="tag">Econometrics</span>
-      <span class="tag">Data Visualisation</span>
-      <span class="tag">Statistical Modelling</span>
-    </p>
-  </section>
+    <section id="publications">
+      <h2 class="section-title">Publications</h2>
 
-  <section>
-    <h2>Languages</h2>
-    <p>
-      Mandarin Chinese: Native<br />
-      English: Fluent
-    </p>
-  </section>
+      <div class="card">
+        <div class="publication">
+          <p>
+            Zhang, J., <strong>Wang, C.</strong>, & Liu, M. 
+            Generative AI Use Profiles and Academic Outcomes in Higher Education:
+            The Role of Institutional Support.
+            <em>Interactive Learning Environments</em>. Accepted.
+            <br />
+            <a href="https://doi.org/10.1080/10494820.2026.2668610" target="_blank">
+              DOI: 10.1080/10494820.2026.2668610
+            </a>
+          </p>
+        </div>
 
-  <footer>
-    <p>© 2026 Chenzhang Wang. Powered by GitHub Pages.</p>
-  </footer>
+        <div class="publication">
+          <p>
+            Liu, Y., <strong>Wang, C.</strong>, & Li, Y. (2025).
+            Analyzing the Price Elasticity of Demand in China’s Tourism Sector:
+            Key Economic Drivers and Implications.
+            <em>Proceedings of ICEMME 2024</em>, Springer Nature.
+            <br />
+            <a href="https://doi.org/10.2991/978-94-6463-690-1_15" target="_blank">
+              DOI: 10.2991/978-94-6463-690-1_15
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2 class="section-title">Experience</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Research Assistant</h3>
+          <p class="date">School of Computer Science, Wuhan Institute of Technology</p>
+          <ul>
+            <li>Worked on research related to generative AI adoption and educational outcomes.</li>
+            <li>Used latent class analysis, ordered logit modelling, bootstrap tests, and XGBoost robustness checks.</li>
+            <li>Contributed to two research articles, including one accepted by an SSCI journal.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Intern Teacher</h3>
+          <p class="date">Wuhan Libertar Education & Technology Co., Ltd.</p>
+          <ul>
+            <li>Monitored students’ learning progress and vocabulary acquisition.</li>
+            <li>Graded mock exams and assignments.</li>
+            <li>Provided tailored explanations and teaching support.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">Skills</h2>
+
+      <div class="card">
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">R</span>
+          <span class="tag">Stata</span>
+          <span class="tag">SPSS</span>
+          <span class="tag">Excel</span>
+          <span class="tag">Econometrics</span>
+          <span class="tag">Causal Inference</span>
+          <span class="tag">Statistical Modelling</span>
+          <span class="tag">Data Visualisation</span>
+          <span class="tag">Machine Learning</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Chenzhang Wang. Powered by GitHub Pages.</p>
+    </footer>
+  </main>
 </body>
 </html>
