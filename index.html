@@ -701,7 +701,7 @@
     <div class="nav-container">
       <a class="nav-brand" href="#about" aria-label="Chenzhang Wang homepage">
         <span class="brand-mark">CW</span>
-        <span class="nav-name">Chenzhang Wang</span>
+        <span class="nav-name" data-i18n="nav.name">Chenzhang Wang</span>
       </a>
 
       <div class="nav-links" aria-label="Section links">
@@ -732,7 +732,7 @@
             <span data-i18n="hero.eyebrow">Mathematics · Business · Data Science</span>
           </div>
 
-          <h1>Chenzhang Wang</h1>
+          <h1 data-i18n="hero.name">Chenzhang Wang</h1>
 
           <p class="subtitle" data-i18n="hero.subtitle">
             BSc Mathematics and Business student at the University of Edinburgh.
@@ -1023,6 +1023,8 @@
     const translations = {
       en: {
         "skip": "Skip to main content",
+        "nav.name": "Chenzhang Wang",
+        "hero.name": "Chenzhang Wang",
         "nav.about": "About",
         "nav.education": "Education",
         "nav.research": "Research",
@@ -1142,8 +1144,8 @@
 
       zh: {
         "skip": "跳转到主要内容",
-        "nav.name": "王晨璋",
-        "hero.name": "王晨璋",
+        "nav.name": "王晨章",
+        "hero.name": "王晨章",
         "nav.about": "关于我",
         "nav.education": "教育背景",
         "nav.research": "研究项目",
@@ -1280,7 +1282,7 @@
       });
 
       document.title = lang === "zh"
-        ? "王晨璋 | 个人主页"
+        ? "王晨章 | 个人主页"
         : "Chenzhang Wang | Personal Homepage";
 
       localStorage.setItem("preferredLanguage", lang);
@@ -1306,3 +1308,4 @@
   </script>
 </body>
 </html>
+
