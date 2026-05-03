@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Personal academic homepage of Chenzhang Wang, BSc Mathematics and Business student at the University of Edinburgh." />
 
   <title>Chenzhang Wang | Personal Homepage</title>
 
@@ -10,13 +11,19 @@
     :root {
       --primary: #2563eb;
       --primary-dark: #1d4ed8;
-      --dark: #111827;
-      --text: #374151;
-      --muted: #6b7280;
-      --bg: #f3f4f6;
-      --card: #ffffff;
-      --border: #e5e7eb;
-      --light-blue: #eff6ff;
+      --primary-soft: #dbeafe;
+      --accent: #0f766e;
+      --dark: #0f172a;
+      --text: #334155;
+      --muted: #64748b;
+      --bg: #f8fafc;
+      --card: rgba(255, 255, 255, 0.88);
+      --border: #e2e8f0;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      --shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.06);
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --max-width: 1120px;
     }
 
     * {
@@ -29,166 +36,425 @@
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
-      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 34rem),
+        radial-gradient(circle at top right, rgba(15, 118, 110, 0.10), transparent 32rem),
+        var(--bg);
       color: var(--text);
-      line-height: 1.7;
+      line-height: 1.75;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: -48px;
+      z-index: 999;
+      background: var(--dark);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 300;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
     }
 
     nav {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      z-index: 200;
+      background: rgba(248, 250, 252, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.82);
     }
 
     .nav-container {
-      max-width: 1100px;
+      max-width: var(--max-width);
       margin: 0 auto;
       padding: 14px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 18px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: fit-content;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.24);
     }
 
     .nav-name {
-      font-weight: 700;
+      font-weight: 800;
       color: var(--dark);
-      font-size: 17px;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
     }
 
     .nav-links a {
-      margin-left: 18px;
       color: var(--text);
       text-decoration: none;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 650;
+      padding: 8px 10px;
+      border-radius: 999px;
+      transition: 0.18s ease;
     }
 
     .nav-links a:hover {
       color: var(--primary);
+      background: rgba(37, 99, 235, 0.08);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .lang-btn:hover {
+      color: var(--primary);
+    }
+
+    .lang-btn.active {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
     }
 
     .container {
-      max-width: 1100px;
+      max-width: var(--max-width);
       margin: 0 auto;
-      padding: 52px 24px;
+      padding: 58px 24px 46px;
+    }
+
+    section {
+      scroll-margin-top: 92px;
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.6fr 0.9fr;
+      grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.85fr);
       gap: 28px;
       align-items: stretch;
-      margin-bottom: 40px;
+      margin-bottom: 28px;
+    }
+
+    .hero-card,
+    .profile-card,
+    .card,
+    .highlight-box {
+      background: var(--card);
+      border: 1px solid rgba(226, 232, 240, 0.94);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .hero-card {
-      background: linear-gradient(135deg, #ffffff, #eff6ff);
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      padding: 44px;
-      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.06);
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.10), transparent 38%),
+        radial-gradient(circle at 85% 15%, rgba(15, 118, 110, 0.13), transparent 18rem);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.10);
+      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(15, 118, 110, 0.10);
     }
 
     h1 {
       margin: 0 0 12px;
       color: var(--dark);
-      font-size: 46px;
-      line-height: 1.12;
-      letter-spacing: -0.8px;
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.03;
+      letter-spacing: -1.8px;
     }
 
     .subtitle {
-      font-size: 18px;
+      max-width: 720px;
+      font-size: 20px;
       color: var(--muted);
-      margin-bottom: 24px;
+      margin: 0 0 24px;
+    }
+
+    .hero-card p {
+      max-width: 720px;
     }
 
     .button-group {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 24px;
+      margin-top: 28px;
     }
 
     .button {
-      display: inline-block;
-      padding: 11px 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
       border-radius: 999px;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 14px;
-      transition: 0.2s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
     }
 
     .button-primary {
       background: var(--primary);
       color: #ffffff;
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
     }
 
     .button-primary:hover {
       background: var(--primary-dark);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
     }
 
     .button-secondary {
       border: 1px solid var(--border);
       color: var(--dark);
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.82);
     }
 
     .button-secondary:hover {
-      border-color: var(--primary);
+      border-color: rgba(37, 99, 235, 0.45);
       color: var(--primary);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(15, 23, 42, 0.06);
     }
 
     .profile-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 26px;
+      border-radius: var(--radius-lg);
       padding: 30px;
-      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.05);
-      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .profile-photo-wrap {
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
     }
 
     .profile-photo {
-      width: 165px;
-      height: 165px;
+      width: 174px;
+      height: 174px;
       object-fit: cover;
       border-radius: 50%;
       display: block;
-      margin: 0 auto 22px;
-      border: 5px solid #dbeafe;
-      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.18);
+      border: 6px solid #ffffff;
+      outline: 1px solid #bfdbfe;
+      box-shadow: 0 18px 38px rgba(37, 99, 235, 0.18);
     }
 
-    .profile-card h3 {
-      margin-top: 0;
-      margin-bottom: 14px;
+    .profile-card h2 {
+      margin: 0 0 14px;
       color: var(--dark);
-      font-size: 22px;
+      font-size: 24px;
       text-align: center;
+      letter-spacing: -0.3px;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 12px;
     }
 
     .info-line {
-      margin: 10px 0;
+      margin: 0;
+      padding: 12px 14px;
+      border: 1px solid rgba(226, 232, 240, 0.86);
+      border-radius: 16px;
+      background: rgba(248, 250, 252, 0.72);
       color: var(--text);
-      font-size: 15px;
+      font-size: 14px;
     }
 
-    section {
-      margin-top: 36px;
+    .info-line strong {
+      display: block;
+      color: var(--dark);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .profile-card a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 28px 0 34px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(226, 232, 240, 0.94);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.045);
+    }
+
+    .stat-number {
+      display: block;
+      color: var(--dark);
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .highlight-box {
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin: 34px 0;
+      background:
+        linear-gradient(135deg, rgba(239, 246, 255, 0.96), rgba(240, 253, 250, 0.88));
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin: 54px 0 18px;
+    }
+
+    .section-kicker {
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 0 0 4px;
     }
 
     .section-title {
-      font-size: 28px;
       color: var(--dark);
-      margin-bottom: 18px;
-      letter-spacing: -0.4px;
+      font-size: clamp(27px, 4vw, 36px);
+      line-height: 1.16;
+      margin: 0;
+      letter-spacing: -0.8px;
+    }
+
+    .section-note {
+      max-width: 430px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: right;
     }
 
     .grid {
@@ -204,45 +470,58 @@
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.045);
-      transition: 0.2s ease;
+      border-radius: var(--radius-md);
+      padding: 26px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
     .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.075);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: rgba(37, 99, 235, 0.28);
     }
 
     .card h3 {
-      margin: 0 0 7px;
+      margin: 0 0 8px;
       color: var(--dark);
-      font-size: 18px;
+      font-size: 19px;
       line-height: 1.35;
+      letter-spacing: -0.25px;
     }
 
     .date {
       color: var(--muted);
       font-size: 14px;
+      margin: 0 0 13px;
+      font-weight: 650;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      gap: 7px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.09);
+      color: #1e40af;
+      font-size: 12px;
+      font-weight: 850;
       margin: 0 0 12px;
-      font-style: italic;
     }
 
     ul {
       padding-left: 20px;
-      margin-bottom: 0;
+      margin: 14px 0 0;
     }
 
     li {
-      margin-bottom: 7px;
+      margin-bottom: 8px;
     }
 
     .publication {
-      margin-bottom: 18px;
-      padding-bottom: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
       border-bottom: 1px solid var(--border);
     }
 
@@ -252,14 +531,24 @@
       padding-bottom: 0;
     }
 
+    .publication p {
+      margin: 0 0 10px;
+    }
+
     .publication a {
       color: var(--primary);
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 800;
     }
 
     .publication a:hover {
       text-decoration: underline;
+    }
+
+    .author-note {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14px;
     }
 
     .tags {
@@ -269,360 +558,430 @@
     }
 
     .tag {
-      background: #dbeafe;
-      color: #1e40af;
-      padding: 7px 13px;
+      background: #e0f2fe;
+      color: #075985;
+      padding: 8px 13px;
       border-radius: 999px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 800;
     }
 
-    .highlight-box {
-      background: var(--light-blue);
-      border: 1px solid #bfdbfe;
-      border-radius: 20px;
-      padding: 24px;
+    .tag.alt {
+      background: #dcfce7;
+      color: #166534;
     }
 
-    footer {
-      margin-top: 56px;
-      padding-top: 24px;
+    .tag.soft {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+    .footer {
+      margin-top: 60px;
+      padding: 28px 0 10px;
       border-top: 1px solid var(--border);
       color: var(--muted);
       font-size: 14px;
       text-align: center;
     }
 
-    @media (max-width: 850px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
+    .back-to-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 150;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--dark);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
+      text-decoration: none;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: 0.18s ease;
+    }
 
+    .back-to-top.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
       .grid,
-      .grid-three {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 36px;
+      .grid-three,
+      .stats {
+        grid-template-columns: 1fr 1fr;
       }
 
       .hero-card {
-        padding: 32px;
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .nav-container {
+        flex-wrap: wrap;
       }
 
       .nav-links {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .nav-links a {
+        white-space: nowrap;
+      }
+
+      .hero,
+      .grid,
+      .grid-three,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        padding: 34px 26px;
+      }
+
+      .profile-card {
+        padding: 26px;
+      }
+
+      .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .section-note {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        padding: 34px 18px 36px;
+      }
+
+      .nav-container {
+        padding: 12px 18px;
+      }
+
+      .nav-name {
         display: none;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .profile-photo {
+        width: 150px;
+        height: 150px;
       }
     }
   </style>
 </head>
 
 <body>
-  <nav>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <nav aria-label="Primary navigation">
     <div class="nav-container">
-      <div class="nav-name">Chenzhang Wang</div>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#education">Education</a>
-        <a href="#research">Research</a>
-        <a href="#publications">Publications</a>
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
+      <a class="nav-brand" href="#about" aria-label="Chenzhang Wang homepage">
+        <span class="brand-mark">CW</span>
+        <span class="nav-name">Chenzhang Wang</span>
+      </a>
+
+      <div class="nav-links" aria-label="Section links">
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#education" data-i18n="nav.education">Education</a>
+        <a href="#research" data-i18n="nav.research">Research</a>
+        <a href="#publications" data-i18n="nav.publications">Publications</a>
+        <a href="#experience" data-i18n="nav.experience">Experience</a>
+        <a href="#skills" data-i18n="nav.skills">Skills</a>
+        <a href="#languages" data-i18n="nav.languages">Languages</a>
+      </div>
+
+      <div class="nav-actions">
+        <div class="lang-switch" aria-label="Language switcher">
+          <button class="lang-btn active" type="button" data-lang="en" onclick="setLanguage('en')">EN</button>
+          <button class="lang-btn" type="button" data-lang="zh" onclick="setLanguage('zh')">中文</button>
+        </div>
       </div>
     </div>
   </nav>
 
-  <main class="container">
+  <main class="container" id="main">
     <section class="hero" id="about">
       <div class="hero-card">
-        <h1>Chenzhang Wang</h1>
+        <div class="hero-content">
+          <div class="eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            <span data-i18n="hero.eyebrow">Mathematics · Business · Data Science</span>
+          </div>
 
-        <p class="subtitle">
-          BSc Mathematics and Business student at the University of Edinburgh.
-        </p>
+          <h1>Chenzhang Wang</h1>
 
-        <p>
-          I am an undergraduate student interested in quantitative methods,
-          causal inference, applied econometrics, statistical modelling,
-          machine learning, and data-driven business analysis.
-        </p>
+          <p class="subtitle" data-i18n="hero.subtitle">
+            BSc Mathematics and Business student at the University of Edinburgh.
+          </p>
 
-        <p>
-          I am currently pursuing an exchange programme in Mathematical Sciences
-          and Economics at Nanyang Technological University. My academic and
-          research interests lie at the intersection of statistics, economics,
-          data science, and business strategy.
-        </p>
+          <p data-i18n="hero.intro1">
+            I am an undergraduate student interested in quantitative methods, causal inference, applied econometrics, statistical modelling, machine learning, and data-driven business analysis.
+          </p>
 
-        <div class="button-group">
-          <a class="button button-primary" href="CV_Wang%20Chenzhang_v1.pdf" target="_blank">
-            Download CV
-          </a>
+          <p data-i18n="hero.intro2">
+            I am currently pursuing an exchange programme in Mathematical Sciences and Economics at Nanyang Technological University. My academic and research interests lie at the intersection of statistics, economics, data science, and business strategy.
+          </p>
 
-          <a class="button button-secondary" href="mailto:S2558991@ed.ac.uk">
-            Contact Me
-          </a>
+          <div class="button-group">
+            <a class="button button-primary" href="CV_Wang%20Chenzhang_v1.pdf" target="_blank" rel="noopener" data-i18n="hero.cv">
+              Download CV
+            </a>
+
+            <a class="button button-secondary" href="mailto:S2558991@ed.ac.uk" data-i18n="hero.contact">
+              Contact Me
+            </a>
+          </div>
         </div>
       </div>
 
-      <div class="profile-card">
-        <img class="profile-photo" src="profile.jpg" alt="Chenzhang Wang profile photo" />
+      <aside class="profile-card" aria-label="Profile summary">
+        <div>
+          <div class="profile-photo-wrap">
+            <img class="profile-photo" src="profile.jpg" alt="Chenzhang Wang profile photo" />
+          </div>
 
-        <h3>Profile</h3>
+          <h2 data-i18n="profile.title">Profile</h2>
 
-        <p class="info-line">
-          <strong>University:</strong><br />
-          University of Edinburgh
-        </p>
+          <div class="info-list">
+            <p class="info-line">
+              <strong data-i18n="profile.universityLabel">University</strong>
+              <span data-i18n="profile.universityValue">University of Edinburgh</span>
+            </p>
 
-        <p class="info-line">
-          <strong>Degree:</strong><br />
-          BSc Mathematics and Business
-        </p>
+            <p class="info-line">
+              <strong data-i18n="profile.degreeLabel">Degree</strong>
+              <span data-i18n="profile.degreeValue">BSc Mathematics and Business</span>
+            </p>
 
-        <p class="info-line">
-          <strong>Exchange:</strong><br />
-          Nanyang Technological University
-        </p>
+            <p class="info-line">
+              <strong data-i18n="profile.exchangeLabel">Exchange</strong>
+              <span data-i18n="profile.exchangeValue">Nanyang Technological University</span>
+            </p>
 
-        <p class="info-line">
-          <strong>Email:</strong><br />
-          <a href="mailto:S2558991@ed.ac.uk">S2558991@ed.ac.uk</a>
-        </p>
+            <p class="info-line">
+              <strong data-i18n="profile.emailLabel">Email</strong>
+              <a href="mailto:S2558991@ed.ac.uk">S2558991@ed.ac.uk</a>
+            </p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="stats" aria-label="Highlights">
+      <div class="stat-card">
+        <span class="stat-number">First Class</span>
+        <span class="stat-label" data-i18n="stats.s1">Academic standing</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">2</span>
+        <span class="stat-label" data-i18n="stats.s2">Research publications</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">SSCI / EI</span>
+        <span class="stat-label" data-i18n="stats.s3">Publication experience</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">2027</span>
+        <span class="stat-label" data-i18n="stats.s4">Expected graduation</span>
       </div>
     </section>
 
     <section>
       <div class="highlight-box">
-        <h2 class="section-title" style="margin-top: 0;">Research Interests</h2>
-        <p>
-          My interests include causal inference, econometrics, quantitative
-          business analysis, statistical learning, education data science,
-          environmental data analysis, and interdisciplinary empirical research.
+        <p class="section-kicker" data-i18n="interest.kicker">Research Focus</p>
+        <h2 class="section-title" data-i18n="interest.title">Research Interests</h2>
+        <p data-i18n="interest.text">
+          My interests include causal inference, econometrics, quantitative business analysis, statistical learning, education data science, environmental data analysis, and interdisciplinary empirical research.
         </p>
       </div>
     </section>
 
     <section id="education">
-      <h2 class="section-title">Education</h2>
+      <div class="section-header">
+        <div>
+          <p class="section-kicker" data-i18n="education.kicker">Academic Background</p>
+          <h2 class="section-title" data-i18n="education.title">Education</h2>
+        </div>
+        <p class="section-note" data-i18n="education.note">A quantitative academic path across mathematics, business, economics, and empirical research.</p>
+      </div>
 
       <div class="grid-three">
         <div class="card">
-          <h3>University of Edinburgh</h3>
-          <p class="date">Sep. 2023 – May 2027</p>
-          <p>
-            BSc Mathematics and Business, School of Mathematics.
-          </p>
-          <p>
-            Average Score: 71/100<br />
-            GPA: 3.71/4.00<br />
-            First Class standing
-          </p>
+          <h3 data-i18n="education.ed1.school">University of Edinburgh</h3>
+          <p class="date" data-i18n="education.ed1.date">Sep. 2023 – May 2027</p>
+          <p data-i18n="education.ed1.desc1">BSc Mathematics and Business, School of Mathematics.</p>
+          <p data-i18n="education.ed1.desc2">Average Score: 71/100<br />GPA: 3.71/4.00<br />First Class standing</p>
         </div>
 
         <div class="card">
-          <h3>Nanyang Technological University</h3>
-          <p class="date">Aug. 2025 – May 2026</p>
-          <p>
-            Exchange Programme in Mathematical Sciences and Economics.
-          </p>
-          <p>
-            Relevant modules include Econometrics, Quantitative Methods for
-            Business, Mathematical Modelling, and Introductory Statistics with
-            Applications.
-          </p>
+          <h3 data-i18n="education.ed2.school">Nanyang Technological University</h3>
+          <p class="date" data-i18n="education.ed2.date">Aug. 2025 – May 2026</p>
+          <p data-i18n="education.ed2.desc1">Exchange Programme in Mathematical Sciences and Economics.</p>
+          <p data-i18n="education.ed2.desc2">Relevant modules include Econometrics, Quantitative Methods for Business, Mathematical Modelling, and Introductory Statistics with Applications.</p>
         </div>
 
         <div class="card">
-          <h3>Peking University Summer School</h3>
-          <p class="date">Jun. 2025 – Jul. 2025</p>
-          <p>
-            Completed modules in causal identification methods and data analysis
-            with Stata.
-          </p>
-          <p>
-            Covered DID, RDD, IV, regression modelling, statistical testing,
-            and empirical research replication.
-          </p>
+          <h3 data-i18n="education.ed3.school">Peking University Summer School</h3>
+          <p class="date" data-i18n="education.ed3.date">Jun. 2025 – Jul. 2025</p>
+          <p data-i18n="education.ed3.desc1">Completed modules in causal identification methods and data analysis with Stata.</p>
+          <p data-i18n="education.ed3.desc2">Covered DID, RDD, IV, regression modelling, statistical testing, and empirical research replication.</p>
         </div>
       </div>
     </section>
 
     <section id="research">
-      <h2 class="section-title">Research Projects</h2>
+      <div class="section-header">
+        <div>
+          <p class="section-kicker" data-i18n="research.kicker">Selected Work</p>
+          <h2 class="section-title" data-i18n="research.title">Research Projects</h2>
+        </div>
+        <p class="section-note" data-i18n="research.note">Projects combining statistical modelling, causal reasoning, and data-driven analysis.</p>
+      </div>
 
       <div class="grid">
         <div class="card">
-          <h3>
-            Analysis of References in the Intergovernmental Panel on Climate Change Assessment Reports
-          </h3>
-          <p class="date">Jul. 2025 – Present</p>
-          <p>
-            Research Intern, Bartlett School of Sustainable Construction,
-            University College London.
-          </p>
-
+          <span class="meta-pill" data-i18n="research.r1.type">Research Internship</span>
+          <h3 data-i18n="research.r1.title">Analysis of References in the Intergovernmental Panel on Climate Change Assessment Reports</h3>
+          <p class="date" data-i18n="research.r1.date">Jul. 2025 – Present</p>
+          <p data-i18n="research.r1.role">Research Intern, Bartlett School of Sustainable Construction, University College London.</p>
           <ul>
-            <li>
-              Conducted literature analysis on climate change and low-carbon transition.
-            </li>
-            <li>
-              Collected, cleaned, and organised data for a structured reference database.
-            </li>
-            <li>
-              Supported ongoing literature analysis and improved data organisation.
-            </li>
+            <li data-i18n="research.r1.b1">Conducted literature analysis on climate change and low-carbon transition.</li>
+            <li data-i18n="research.r1.b2">Collected, cleaned, and organised data for a structured reference database.</li>
+            <li data-i18n="research.r1.b3">Supported ongoing literature analysis and improved data organisation.</li>
           </ul>
         </div>
 
         <div class="card">
-          <h3>
-            A Comprehensive Analysis of the US Office Rental Market, 2018–2024
-          </h3>
-          <p class="date">Mar. 2025</p>
-          <p>
-            Research Member, ASA DataFest 2025.
-          </p>
-
+          <span class="meta-pill" data-i18n="research.r2.type">DataFest Project</span>
+          <h3 data-i18n="research.r2.title">A Comprehensive Analysis of the US Office Rental Market, 2018–2024</h3>
+          <p class="date" data-i18n="research.r2.date">Mar. 2025</p>
+          <p data-i18n="research.r2.role">Research Member, ASA DataFest 2025.</p>
           <ul>
-            <li>
-              Applied Python-based statistical analysis and data visualisation.
-            </li>
-            <li>
-              Analysed rent trends, occupancy recovery patterns, and economic drivers.
-            </li>
-            <li>
-              Classified markets into high-risk, tenant-favourable, and investment-ready groups.
-            </li>
+            <li data-i18n="research.r2.b1">Applied Python-based statistical analysis and data visualisation.</li>
+            <li data-i18n="research.r2.b2">Analysed rent trends, occupancy recovery patterns, and economic drivers.</li>
+            <li data-i18n="research.r2.b3">Classified markets into high-risk, tenant-favourable, and investment-ready groups.</li>
           </ul>
         </div>
       </div>
     </section>
 
     <section id="publications">
-      <h2 class="section-title">Publications</h2>
-      <p class="author-note">
-    <sup>*</sup> Co-first authors; <sup>†</sup> Corresponding author.
-  </p>
+      <div class="section-header">
+        <div>
+          <p class="section-kicker" data-i18n="pub.kicker">Academic Output</p>
+          <h2 class="section-title" data-i18n="pub.title">Publications</h2>
+        </div>
+        <p class="section-note" data-i18n="pub.noteShort">Peer-reviewed and conference-related research outputs.</p>
+      </div>
+
+      <p class="author-note" data-i18n="pub.note"><sup>*</sup> Co-first authors; <sup>†</sup> Corresponding author.</p>
+
       <div class="card">
         <div class="publication">
-          <p>
-            Zhang, J., <strong>Wang, C.<sup>†</sup></strong>, & Liu, M.
-        Generative AI Use Profiles and Academic Outcomes in Higher Education:
-        The Role of Institutional Support.
-        <em>Interactive Learning Environments</em>. (SSCI, Q1; IF: 6.3)
+          <p data-i18n="pub.p1">
+            Zhang, J., <strong>Wang, C.<sup>†</sup></strong>, &amp; Liu, M. Generative AI Use Profiles and Academic Outcomes in Higher Education: The Role of Institutional Support. <em>Interactive Learning Environments</em>. (SSCI, Q1; IF: 6.3)
           </p>
-
           <p>
-            <a href="https://doi.org/10.1080/10494820.2026.2668610" target="_blank">
-              DOI: 10.1080/10494820.2026.2668610
-            </a>
+            <a href="https://doi.org/10.1080/10494820.2026.2668610" target="_blank" rel="noopener">DOI: 10.1080/10494820.2026.2668610</a>
           </p>
         </div>
 
         <div class="publication">
-          <p>
-           Liu, Y.<sup>*</sup>, <strong>Wang, C.<sup>*</sup></strong>, & Li, Y. (2025).
-        Analyzing the Price Elasticity of Demand in China's Tourism Sector:
-        Key Economic Drivers and Implications.
-        In <em>Proceedings of the 2024 6th International Conference on
-        Economic Management and Model Engineering</em>, Springer Nature.
+          <p data-i18n="pub.p2">
+            Liu, Y.<sup>*</sup>, <strong>Wang, C.<sup>*</sup></strong>, &amp; Li, Y. (2025). Analyzing the Price Elasticity of Demand in China's Tourism Sector: Key Economic Drivers and Implications. In <em>Proceedings of the 2024 6th International Conference on Economic Management and Model Engineering</em>, Springer Nature.
           </p>
-
           <p>
-            <a href="https://doi.org/10.2991/978-94-6463-690-1_15" target="_blank">
-              DOI: 10.2991/978-94-6463-690-1_15
-            </a>
+            <a href="https://doi.org/10.2991/978-94-6463-690-1_15" target="_blank" rel="noopener">DOI: 10.2991/978-94-6463-690-1_15</a>
           </p>
         </div>
       </div>
     </section>
 
     <section id="experience">
-      <h2 class="section-title">Experience</h2>
+      <div class="section-header">
+        <div>
+          <p class="section-kicker" data-i18n="exp.kicker">Professional & Campus Experience</p>
+          <h2 class="section-title" data-i18n="exp.title">Experience</h2>
+        </div>
+        <p class="section-note" data-i18n="exp.note">Research, teaching, teamwork, and extracurricular experience.</p>
+      </div>
 
       <div class="grid">
         <div class="card">
-          <h3>Research Assistant</h3>
-          <p class="date">School of Computer Science, Wuhan Institute of Technology | Sep. 2025 – Sep. 2026</p>
-
+          <h3 data-i18n="exp.e1.title">Research Assistant</h3>
+          <p class="date" data-i18n="exp.e1.date">School of Computer Science, Wuhan Institute of Technology | Sep. 2025 – Sep. 2026</p>
           <ul>
-            <li>
-              Worked on research related to generative AI adoption, institutional support,
-              and educational outcomes.
-            </li>
-            <li>
-              Collected, cleaned, and analysed survey-based data.
-            </li>
-            <li>
-              Conducted latent class analysis, ordered logit modelling, bootstrap tests,
-              and XGBoost robustness checks.
-            </li>
-            <li>
-              Contributed to two research articles, including one accepted by an SSCI journal.
-            </li>
+            <li data-i18n="exp.e1.b1">Worked on research related to generative AI adoption, institutional support, and educational outcomes.</li>
+            <li data-i18n="exp.e1.b2">Collected, cleaned, and analysed survey-based data.</li>
+            <li data-i18n="exp.e1.b3">Conducted latent class analysis, ordered logit modelling, bootstrap tests, and XGBoost robustness checks.</li>
+            <li data-i18n="exp.e1.b4">Contributed to two research articles, including one accepted by an SSCI journal.</li>
           </ul>
         </div>
 
         <div class="card">
-          <h3>Intern Teacher</h3>
-          <p class="date">Wuhan Libertar Education & Technology Co., Ltd. | May 2025 – Jun. 2025</p>
-
+          <h3 data-i18n="exp.e2.title">Intern Teacher</h3>
+          <p class="date" data-i18n="exp.e2.date">Wuhan Libertar Education &amp; Technology Co., Ltd. | May 2025 – Jun. 2025</p>
           <ul>
-            <li>
-              Monitored students’ learning progress and vocabulary acquisition.
-            </li>
-            <li>
-              Graded mock exams and assignments.
-            </li>
-            <li>
-              Provided tailored explanations and instructional support.
-            </li>
-            <li>
-              Communicated with colleagues and supervisors to support time-sensitive teaching tasks.
-            </li>
+            <li data-i18n="exp.e2.b1">Monitored students’ learning progress and vocabulary acquisition.</li>
+            <li data-i18n="exp.e2.b2">Graded mock exams and assignments.</li>
+            <li data-i18n="exp.e2.b3">Provided tailored explanations and instructional support.</li>
+            <li data-i18n="exp.e2.b4">Communicated with colleagues and supervisors to support time-sensitive teaching tasks.</li>
           </ul>
         </div>
 
         <div class="card">
-          <h3>Intern Teacher</h3>
-          <p class="date">Summer Camp, Wuhan Jingkai Foreign Language School | Jul. 2024</p>
-
+          <h3 data-i18n="exp.e3.title">Intern Teacher</h3>
+          <p class="date" data-i18n="exp.e3.date">Summer Camp, Wuhan Jingkai Foreign Language School | Jul. 2024</p>
           <ul>
-            <li>
-              Maintained classroom discipline and organised group activities.
-            </li>
-            <li>
-              Provided one-to-seven support for students who needed additional help.
-            </li>
-            <li>
-              Assisted with attendance checks, lesson preparation, and administrative tasks.
-            </li>
+            <li data-i18n="exp.e3.b1">Maintained classroom discipline and organised group activities.</li>
+            <li data-i18n="exp.e3.b2">Provided one-to-seven support for students who needed additional help.</li>
+            <li data-i18n="exp.e3.b3">Assisted with attendance checks, lesson preparation, and administrative tasks.</li>
           </ul>
         </div>
 
         <div class="card">
-          <h3>Table Tennis Team Player</h3>
-          <p class="date">University of Edinburgh | Sep. 2024 – Present</p>
-
+          <h3 data-i18n="exp.e4.title">Table Tennis Team Player</h3>
+          <p class="date" data-i18n="exp.e4.date">University of Edinburgh | Sep. 2024 – Present</p>
           <ul>
-            <li>
-              Attend regular training sessions and compete in inter-university matches.
-            </li>
-            <li>
-              Support new players and contribute to a collaborative training environment.
-            </li>
-            <li>
-              Runner-up in the Edinburgh Championship, 19–40 Brand 2.
-            </li>
+            <li data-i18n="exp.e4.b1">Attend regular training sessions and compete in inter-university matches.</li>
+            <li data-i18n="exp.e4.b2">Support new players and contribute to a collaborative training environment.</li>
+            <li data-i18n="exp.e4.b3">Runner-up in the Edinburgh Championship, 19–40 Brand 2.</li>
           </ul>
         </div>
       </div>
     </section>
 
     <section id="skills">
-      <h2 class="section-title">Skills</h2>
+      <div class="section-header">
+        <div>
+          <p class="section-kicker" data-i18n="skills.kicker">Toolkit</p>
+          <h2 class="section-title" data-i18n="skills.title">Skills</h2>
+        </div>
+      </div>
 
       <div class="card">
         <div class="tags">
@@ -630,27 +989,318 @@
           <span class="tag">R</span>
           <span class="tag">Stata</span>
           <span class="tag">SPSS</span>
-          <span class="tag">Excel</span>  
+          <span class="tag">Excel</span>
+          <span class="tag alt" data-i18n="skills.s1">Causal Inference</span>
+          <span class="tag alt" data-i18n="skills.s2">Econometrics</span>
+          <span class="tag soft" data-i18n="skills.s3">Statistical Modelling</span>
+          <span class="tag soft" data-i18n="skills.s4">Machine Learning</span>
         </div>
       </div>
     </section>
 
     <section id="languages">
-      <h2 class="section-title">Languages</h2>
+      <div class="section-header">
+        <div>
+          <p class="section-kicker" data-i18n="languages.kicker">Communication</p>
+          <h2 class="section-title" data-i18n="languages.title">Languages</h2>
+        </div>
+      </div>
 
       <div class="card">
-        <p>
-          <strong>Mandarin Chinese:</strong> Native
-        </p>
-        <p>
-          <strong>English:</strong> Fluent
-        </p>
+        <p><strong data-i18n="languages.cnLabel">Mandarin Chinese:</strong> <span data-i18n="languages.cnValue">Native</span></p>
+        <p><strong data-i18n="languages.enLabel">English:</strong> <span data-i18n="languages.enValue">Fluent</span></p>
       </div>
     </section>
 
-    <footer>
-      <p>© 2026 Chenzhang Wang. Powered by GitHub Pages.</p>
+    <footer class="footer">
+      <p data-i18n="footer.text">© 2026 Chenzhang Wang. Powered by GitHub Pages.</p>
     </footer>
   </main>
+
+  <a class="back-to-top" href="#about" id="backToTop" aria-label="Back to top">↑</a>
+
+  <script>
+    const translations = {
+      en: {
+        "skip": "Skip to main content",
+        "nav.about": "About",
+        "nav.education": "Education",
+        "nav.research": "Research",
+        "nav.publications": "Publications",
+        "nav.experience": "Experience",
+        "nav.skills": "Skills",
+        "nav.languages": "Languages",
+
+        "hero.eyebrow": "Mathematics · Business · Data Science",
+        "hero.subtitle": "BSc Mathematics and Business student at the University of Edinburgh.",
+        "hero.intro1": "I am an undergraduate student interested in quantitative methods, causal inference, applied econometrics, statistical modelling, machine learning, and data-driven business analysis.",
+        "hero.intro2": "I am currently pursuing an exchange programme in Mathematical Sciences and Economics at Nanyang Technological University. My academic and research interests lie at the intersection of statistics, economics, data science, and business strategy.",
+        "hero.cv": "Download CV",
+        "hero.contact": "Contact Me",
+
+        "profile.title": "Profile",
+        "profile.universityLabel": "University",
+        "profile.universityValue": "University of Edinburgh",
+        "profile.degreeLabel": "Degree",
+        "profile.degreeValue": "BSc Mathematics and Business",
+        "profile.exchangeLabel": "Exchange",
+        "profile.exchangeValue": "Nanyang Technological University",
+        "profile.emailLabel": "Email",
+
+        "stats.s1": "Academic standing",
+        "stats.s2": "Research publications",
+        "stats.s3": "Publication experience",
+        "stats.s4": "Expected graduation",
+
+        "interest.kicker": "Research Focus",
+        "interest.title": "Research Interests",
+        "interest.text": "My interests include causal inference, econometrics, quantitative business analysis, statistical learning, education data science, environmental data analysis, and interdisciplinary empirical research.",
+
+        "education.kicker": "Academic Background",
+        "education.title": "Education",
+        "education.note": "A quantitative academic path across mathematics, business, economics, and empirical research.",
+        "education.ed1.school": "University of Edinburgh",
+        "education.ed1.date": "Sep. 2023 – May 2027",
+        "education.ed1.desc1": "BSc Mathematics and Business, School of Mathematics.",
+        "education.ed1.desc2": "Average Score: 71/100<br />GPA: 3.71/4.00<br />First Class standing",
+        "education.ed2.school": "Nanyang Technological University",
+        "education.ed2.date": "Aug. 2025 – May 2026",
+        "education.ed2.desc1": "Exchange Programme in Mathematical Sciences and Economics.",
+        "education.ed2.desc2": "Relevant modules include Econometrics, Quantitative Methods for Business, Mathematical Modelling, and Introductory Statistics with Applications.",
+        "education.ed3.school": "Peking University Summer School",
+        "education.ed3.date": "Jun. 2025 – Jul. 2025",
+        "education.ed3.desc1": "Completed modules in causal identification methods and data analysis with Stata.",
+        "education.ed3.desc2": "Covered DID, RDD, IV, regression modelling, statistical testing, and empirical research replication.",
+
+        "research.kicker": "Selected Work",
+        "research.title": "Research Projects",
+        "research.note": "Projects combining statistical modelling, causal reasoning, and data-driven analysis.",
+        "research.r1.type": "Research Internship",
+        "research.r1.title": "Analysis of References in the Intergovernmental Panel on Climate Change Assessment Reports",
+        "research.r1.date": "Jul. 2025 – Present",
+        "research.r1.role": "Research Intern, Bartlett School of Sustainable Construction, University College London.",
+        "research.r1.b1": "Conducted literature analysis on climate change and low-carbon transition.",
+        "research.r1.b2": "Collected, cleaned, and organised data for a structured reference database.",
+        "research.r1.b3": "Supported ongoing literature analysis and improved data organisation.",
+        "research.r2.type": "DataFest Project",
+        "research.r2.title": "A Comprehensive Analysis of the US Office Rental Market, 2018–2024",
+        "research.r2.date": "Mar. 2025",
+        "research.r2.role": "Research Member, ASA DataFest 2025.",
+        "research.r2.b1": "Applied Python-based statistical analysis and data visualisation.",
+        "research.r2.b2": "Analysed rent trends, occupancy recovery patterns, and economic drivers.",
+        "research.r2.b3": "Classified markets into high-risk, tenant-favourable, and investment-ready groups.",
+
+        "pub.kicker": "Academic Output",
+        "pub.title": "Publications",
+        "pub.noteShort": "Peer-reviewed and conference-related research outputs.",
+        "pub.note": "<sup>*</sup> Co-first authors; <sup>†</sup> Corresponding author.",
+        "pub.p1": "Zhang, J., <strong>Wang, C.<sup>†</sup></strong>, &amp; Liu, M. Generative AI Use Profiles and Academic Outcomes in Higher Education: The Role of Institutional Support. <em>Interactive Learning Environments</em>. (SSCI, Q1; IF: 6.3)",
+        "pub.p2": "Liu, Y.<sup>*</sup>, <strong>Wang, C.<sup>*</sup></strong>, &amp; Li, Y. (2025). Analyzing the Price Elasticity of Demand in China's Tourism Sector: Key Economic Drivers and Implications. In <em>Proceedings of the 2024 6th International Conference on Economic Management and Model Engineering</em>, Springer Nature.",
+
+        "exp.kicker": "Professional & Campus Experience",
+        "exp.title": "Experience",
+        "exp.note": "Research, teaching, teamwork, and extracurricular experience.",
+        "exp.e1.title": "Research Assistant",
+        "exp.e1.date": "School of Computer Science, Wuhan Institute of Technology | Sep. 2025 – Sep. 2026",
+        "exp.e1.b1": "Worked on research related to generative AI adoption, institutional support, and educational outcomes.",
+        "exp.e1.b2": "Collected, cleaned, and analysed survey-based data.",
+        "exp.e1.b3": "Conducted latent class analysis, ordered logit modelling, bootstrap tests, and XGBoost robustness checks.",
+        "exp.e1.b4": "Contributed to two research articles, including one accepted by an SSCI journal.",
+        "exp.e2.title": "Intern Teacher",
+        "exp.e2.date": "Wuhan Libertar Education &amp; Technology Co., Ltd. | May 2025 – Jun. 2025",
+        "exp.e2.b1": "Monitored students’ learning progress and vocabulary acquisition.",
+        "exp.e2.b2": "Graded mock exams and assignments.",
+        "exp.e2.b3": "Provided tailored explanations and instructional support.",
+        "exp.e2.b4": "Communicated with colleagues and supervisors to support time-sensitive teaching tasks.",
+        "exp.e3.title": "Intern Teacher",
+        "exp.e3.date": "Summer Camp, Wuhan Jingkai Foreign Language School | Jul. 2024",
+        "exp.e3.b1": "Maintained classroom discipline and organised group activities.",
+        "exp.e3.b2": "Provided one-to-seven support for students who needed additional help.",
+        "exp.e3.b3": "Assisted with attendance checks, lesson preparation, and administrative tasks.",
+        "exp.e4.title": "Table Tennis Team Player",
+        "exp.e4.date": "University of Edinburgh | Sep. 2024 – Present",
+        "exp.e4.b1": "Attend regular training sessions and compete in inter-university matches.",
+        "exp.e4.b2": "Support new players and contribute to a collaborative training environment.",
+        "exp.e4.b3": "Runner-up in the Edinburgh Championship, 19–40 Brand 2.",
+
+        "skills.kicker": "Toolkit",
+        "skills.title": "Skills",
+        "skills.s1": "Causal Inference",
+        "skills.s2": "Econometrics",
+        "skills.s3": "Statistical Modelling",
+        "skills.s4": "Machine Learning",
+
+        "languages.kicker": "Communication",
+        "languages.title": "Languages",
+        "languages.cnLabel": "Mandarin Chinese:",
+        "languages.cnValue": "Native",
+        "languages.enLabel": "English:",
+        "languages.enValue": "Fluent",
+
+        "footer.text": "© 2026 Chenzhang Wang. Powered by GitHub Pages."
+      },
+
+      zh: {
+        "skip": "跳转到主要内容",
+        "nav.about": "关于我",
+        "nav.education": "教育背景",
+        "nav.research": "研究项目",
+        "nav.publications": "论文发表",
+        "nav.experience": "经历",
+        "nav.skills": "技能",
+        "nav.languages": "语言",
+
+        "hero.eyebrow": "数学 · 商业 · 数据科学",
+        "hero.subtitle": "爱丁堡大学数学与商业专业本科生。",
+        "hero.intro1": "我是一名本科生，研究兴趣包括定量方法、因果推断、应用计量经济学、统计建模、机器学习以及数据驱动的商业分析。",
+        "hero.intro2": "我目前正在南洋理工大学参加数学科学与经济学交换项目。我的学术与研究兴趣位于统计学、经济学、数据科学和商业战略的交叉领域。",
+        "hero.cv": "下载简历",
+        "hero.contact": "联系我",
+
+        "profile.title": "个人信息",
+        "profile.universityLabel": "学校",
+        "profile.universityValue": "爱丁堡大学",
+        "profile.degreeLabel": "专业",
+        "profile.degreeValue": "数学与商业（本科）",
+        "profile.exchangeLabel": "交换院校",
+        "profile.exchangeValue": "南洋理工大学",
+        "profile.emailLabel": "邮箱",
+
+        "stats.s1": "学术成绩水平",
+        "stats.s2": "研究论文发表",
+        "stats.s3": "发表经历",
+        "stats.s4": "预计毕业时间",
+
+        "interest.kicker": "研究方向",
+        "interest.title": "研究兴趣",
+        "interest.text": "我的研究兴趣包括因果推断、计量经济学、定量商业分析、统计学习、教育数据科学、环境数据分析以及跨学科实证研究。",
+
+        "education.kicker": "学术背景",
+        "education.title": "教育背景",
+        "education.note": "围绕数学、商业、经济学与实证研究展开的定量学术路径。",
+        "education.ed1.school": "爱丁堡大学",
+        "education.ed1.date": "2023年9月 – 2027年5月",
+        "education.ed1.desc1": "数学与商业本科，数学学院。",
+        "education.ed1.desc2": "平均分：71/100<br />GPA：3.71/4.00<br />一等成绩（First Class）",
+        "education.ed2.school": "南洋理工大学",
+        "education.ed2.date": "2025年8月 – 2026年5月",
+        "education.ed2.desc1": "数学科学与经济学交换项目。",
+        "education.ed2.desc2": "相关课程包括计量经济学、商业定量方法、数学建模以及应用统计导论。",
+        "education.ed3.school": "北京大学暑期学校",
+        "education.ed3.date": "2025年6月 – 2025年7月",
+        "education.ed3.desc1": "完成因果识别方法与 Stata 数据分析课程。",
+        "education.ed3.desc2": "内容涵盖 DID、RDD、IV、回归建模、统计检验以及实证研究复现。",
+
+        "research.kicker": "代表项目",
+        "research.title": "研究项目",
+        "research.note": "结合统计建模、因果推断与数据驱动分析的研究经历。",
+        "research.r1.type": "研究实习",
+        "research.r1.title": "政府间气候变化专门委员会（IPCC）评估报告引文分析",
+        "research.r1.date": "2025年7月 – 至今",
+        "research.r1.role": "伦敦大学学院（UCL）巴特莱特可持续建造学院，研究实习生。",
+        "research.r1.b1": "开展气候变化与低碳转型相关文献分析。",
+        "research.r1.b2": "收集、清洗并整理结构化参考文献数据库。",
+        "research.r1.b3": "支持持续性的文献分析并优化数据组织工作。",
+        "research.r2.type": "DataFest 项目",
+        "research.r2.title": "2018–2024 年美国办公租赁市场综合分析",
+        "research.r2.date": "2025年3月",
+        "research.r2.role": "ASA DataFest 2025 研究成员。",
+        "research.r2.b1": "使用 Python 进行统计分析与数据可视化。",
+        "research.r2.b2": "分析租金趋势、入住率恢复模式及其经济驱动因素。",
+        "research.r2.b3": "将市场划分为高风险型、租户友好型和投资适宜型。",
+
+        "pub.kicker": "学术成果",
+        "pub.title": "论文发表",
+        "pub.noteShort": "同行评审期刊与会议相关研究成果。",
+        "pub.note": "<sup>*</sup> 共同一作；<sup>†</sup> 通讯作者。",
+        "pub.p1": "Zhang, J., <strong>Wang, C.<sup>†</sup></strong>, &amp; Liu, M. Generative AI Use Profiles and Academic Outcomes in Higher Education: The Role of Institutional Support. <em>Interactive Learning Environments</em>. (SSCI, Q1; IF: 6.3)",
+        "pub.p2": "Liu, Y.<sup>*</sup>, <strong>Wang, C.<sup>*</sup></strong>, &amp; Li, Y. (2025). Analyzing the Price Elasticity of Demand in China's Tourism Sector: Key Economic Drivers and Implications. In <em>Proceedings of the 2024 6th International Conference on Economic Management and Model Engineering</em>, Springer Nature.",
+
+        "exp.kicker": "专业与校园经历",
+        "exp.title": "经历",
+        "exp.note": "涵盖研究、教学、团队协作与课外活动的综合经历。",
+        "exp.e1.title": "研究助理",
+        "exp.e1.date": "武汉工程大学计算机科学学院 | 2025年9月 – 2026年9月",
+        "exp.e1.b1": "参与生成式 AI 使用、制度支持与教育结果相关研究。",
+        "exp.e1.b2": "收集、清洗并分析问卷数据。",
+        "exp.e1.b3": "开展潜类别分析、有序 Logit、Bootstrap 检验以及 XGBoost 稳健性分析。",
+        "exp.e1.b4": "参与两篇论文写作，其中一篇已被 SSCI 期刊接收。",
+        "exp.e2.title": "实习教师",
+        "exp.e2.date": "武汉 Libertar 教育科技有限公司 | 2025年5月 – 2025年6月",
+        "exp.e2.b1": "跟踪学生学习进度与词汇掌握情况。",
+        "exp.e2.b2": "批改模拟考试与作业。",
+        "exp.e2.b3": "提供个性化讲解与教学支持。",
+        "exp.e2.b4": "与同事及主管沟通，支持时效性教学任务。",
+        "exp.e3.title": "实习教师",
+        "exp.e3.date": "武汉经开外国语学校夏令营 | 2024年7月",
+        "exp.e3.b1": "维护课堂纪律并组织小组活动。",
+        "exp.e3.b2": "为需要额外帮助的学生提供一对七支持。",
+        "exp.e3.b3": "协助考勤、备课及行政事务。",
+        "exp.e4.title": "乒乓球队队员",
+        "exp.e4.date": "爱丁堡大学 | 2024年9月 – 至今",
+        "exp.e4.b1": "定期参加训练并参与校际比赛。",
+        "exp.e4.b2": "帮助新队员融入训练环境，促进团队合作。",
+        "exp.e4.b3": "获爱丁堡锦标赛 19–40 Brand 2 亚军。",
+
+        "skills.kicker": "工具与方法",
+        "skills.title": "技能",
+        "skills.s1": "因果推断",
+        "skills.s2": "计量经济学",
+        "skills.s3": "统计建模",
+        "skills.s4": "机器学习",
+
+        "languages.kicker": "沟通能力",
+        "languages.title": "语言",
+        "languages.cnLabel": "中文：",
+        "languages.cnValue": "母语",
+        "languages.enLabel": "英语：",
+        "languages.enValue": "流利",
+
+        "footer.text": "© 2026 Chenzhang Wang. 由 GitHub Pages 驱动。"
+      }
+    };
+
+    function setLanguage(lang) {
+      const dictionary = translations[lang] || translations.en;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+        if (dictionary[key]) {
+          element.innerHTML = dictionary[key];
+        }
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((button) => {
+        const isActive = button.dataset.lang === lang;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+
+      document.title = lang === "zh"
+        ? "王晨章 | 个人主页"
+        : "Chenzhang Wang | Personal Homepage";
+
+      localStorage.setItem("preferredLanguage", lang);
+    }
+
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      document.getElementById("scrollProgress").style.width = `${progress}%`;
+
+      const backToTop = document.getElementById("backToTop");
+      backToTop.classList.toggle("show", scrollTop > 520);
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedLang = localStorage.getItem("preferredLanguage") || "en";
+      setLanguage(savedLang);
+      updateScrollProgress();
+    });
+
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+  </script>
 </body>
 </html>
